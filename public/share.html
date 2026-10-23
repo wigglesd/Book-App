@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Have I Read It?</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="heading">Has it been read?</h1>
+  </header>
+  <p class="muted" id="intro">Check a book list against the reading log, or browse the wishlist.</p>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="tab-check">Check books</button>
+    <button data-tab="tab-read">Books read</button>
+    <button data-tab="tab-wishlist">Wishlist</button>
+  </nav>
+
+  <section id="tab-check">
+    <div class="card">
+      <h2>Check a list</h2>
+      <label for="items">One book per line — an ISBN, a title, or “Title by Author”</label>
+      <textarea id="items" placeholder="9780140328721&#10;The Hobbit&#10;Dune by Frank Herbert"></textarea>
+      <div class="row" style="margin-top:12px">
+        <button id="check" class="btn primary">Check</button>
+        <button id="scan-btn" class="btn">Scan a barcode</button>
+      </div>
+      <div id="scanner"></div>
+      <div id="check-msg"></div>
+    </div>
+    <div id="results" class="card hidden"></div>
+  </section>
+
+  <section id="tab-read" class="hidden">
+    <div class="card">
+      <input class="filter" data-list="read" placeholder="Search by title or author">
+      <p class="muted small count"></p>
+      <div class="list"></div>
+    </div>
+  </section>
+
+  <section id="tab-wishlist" class="hidden">
+    <div class="card">
+      <input class="filter" data-list="wishlist" placeholder="Search by title or author">
+      <p class="muted small count"></p>
+      <div class="list"></div>
+    </div>
+  </section>
+
+  <p class="muted small"><a href="/">Owner login</a></p>
+</div>
+<script src="/vendor/html5-qrcode.min.js"></script>
+<script src="/common.js"></script>
+<script src="/share.js"></script>
+</body>
+</html>

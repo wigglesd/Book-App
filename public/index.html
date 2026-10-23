@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Books</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>My Books</h1>
+    <div class="row">
+      <a href="/share.html">Public page</a>
+      <button id="logout" class="btn small hidden">Log out</button>
+    </div>
+  </header>
+
+  <section id="login" class="card hidden">
+    <h2>Owner login</h2>
+    <form id="login-form" class="row">
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+      <button class="btn primary">Log in</button>
+    </form>
+    <div id="login-msg"></div>
+    <p class="muted small">Just want to see what's been read? Go to the <a href="/share.html">public page</a>.</p>
+  </section>
+
+  <main id="owner" class="hidden">
+    <nav class="tabs" id="tabs">
+      <button data-tab="tab-add">Add a book</button>
+      <button data-tab="tab-read">Read</button>
+      <button data-tab="tab-wishlist">Wishlist</button>
+    </nav>
+
+    <section id="tab-add">
+      <div class="card">
+        <h2>Scan or enter an ISBN</h2>
+        <form id="isbn-form" class="row">
+          <input id="isbn" inputmode="numeric" placeholder="e.g. 978-0-14-032872-1" autocomplete="off" required>
+          <button class="btn primary">Look up</button>
+          <button type="button" id="scan-btn" class="btn">Scan barcode</button>
+        </form>
+        <div id="scanner"></div>
+        <div id="add-msg"></div>
+      </div>
+
+      <div id="preview" class="card hidden"></div>
+
+      <form id="manual" class="card hidden">
+        <h2>Enter details manually</h2>
+        <p class="muted small">This ISBN wasn't found in Open Library or Google Books.</p>
+        <label for="m-title">Title</label>
+        <input id="m-title" required>
+        <label for="m-authors">Author(s), comma separated</label>
+        <input id="m-authors">
+        <div class="row" style="margin-top:12px">
+          <button class="btn primary" data-list="read">Mark as read</button>
+          <button class="btn" data-list="wishlist">Add to wishlist</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="tab-read" class="hidden">
+      <div class="card">
+        <input class="filter" data-list="read" placeholder="Filter by title or author">
+        <p class="muted small count"></p>
+        <div class="list"></div>
+      </div>
+    </section>
+
+    <section id="tab-wishlist" class="hidden">
+      <div class="card">
+        <input class="filter" data-list="wishlist" placeholder="Filter by title or author">
+        <p class="muted small count"></p>
+        <div class="list"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="/vendor/html5-qrcode.min.js"></script>
+<script src="/common.js"></script>
+<script src="/owner.js"></script>
+</body>
+</html>

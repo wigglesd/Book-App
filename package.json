@@ -1,0 +1,27 @@
+{
+  "name": "book-app",
+  "version": "1.0.0",
+  "description": "Log the books you have read, keep a wishlist, and let others check them",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wigglesd/Book-App.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wigglesd/Book-App/issues"
+  },
+  "homepage": "https://github.com/wigglesd/Book-App#readme",
+  "dependencies": {
+    "express": "^4.22.3",
+    "html5-qrcode": "^2.3.8"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}
