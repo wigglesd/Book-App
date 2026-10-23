@@ -7,6 +7,8 @@ const { findByTitle } = require('./match');
 
 const MAX_CHECK_ITEMS = 200;
 const MAX_CHECK_LOOKUPS = 25;
+const MAX_FAILED_LOGINS = 10;
+const FAILED_LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
 function createApp({ store, lookup, auth, ownerName = 'the owner' }) {
   const app = express();
@@ -30,8 +32,17 @@ function createApp({ store, lookup, auth, ownerName = 'the owner' }) {
     res.json({ owner: auth.isOwner(req), ownerName });
   });
 
+  // Behind a tunnel every request comes from the same address, so failed
+  // logins are throttled globally rather than per client.
+  let failedLogins = [];
   app.post('/api/login', (req, res) => {
+    const now = Date.now();
+    failedLogins = failedLogins.filter((t) => now - t < FAILED_LOGIN_WINDOW_MS);
+    if (failedLogins.length >= MAX_FAILED_LOGINS) {
+      return res.status(429).json({ error: 'Too many failed logins; try again in 15 minutes' });
+    }
     if (!auth.checkPassword(req.body && req.body.password)) {
+      failedLogins.push(now);
       return res.status(401).json({ error: 'Wrong password' });
     }
     res.setHeader('Set-Cookie', auth.loginCookie(req.secure));

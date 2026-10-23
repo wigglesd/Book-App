@@ -139,3 +139,11 @@ test('serves the pages and the scanner library', async (t) => {
     assert.strictEqual(res.status, 200, p);
   }
 });
+
+test('repeated wrong passwords are throttled', async (t) => {
+  const { req } = await startServer(t);
+  for (let i = 0; i < 10; i++) {
+    assert.strictEqual((await req('POST', '/api/login', { password: 'guess' + i })).status, 401);
+  }
+  assert.strictEqual((await req('POST', '/api/login', { password: 'secret' })).status, 429);
+});

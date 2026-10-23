@@ -1,10 +1,15 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const { createApp } = require('./src/app');
 const { createStore } = require('./src/store');
 const { createLookup } = require('./src/lookup');
 const { createAuth } = require('./src/auth');
+
+// Settings can live in a .env file next to this one (see .env.example).
+const envFile = path.join(__dirname, '.env');
+if (fs.existsSync(envFile)) process.loadEnvFile(envFile);
 
 const ownerPassword = process.env.OWNER_PASSWORD;
 if (!ownerPassword) {

@@ -22,12 +22,14 @@ with a public page where anyone can check whether you've read a book.
 
 ## Running it
 
-Requires Node.js 18+.
+Requires Node.js 20.12+.
 
 ```sh
 npm install
 OWNER_PASSWORD='choose-a-password' OWNER_NAME='David' npm start
 ```
+
+Settings can also go in a `.env` file (see `.env.example`).
 
 Then open <http://localhost:3000> to log in and add books, and share
 `http://<your-host>/share.html` with other people.
@@ -39,6 +41,12 @@ Then open <http://localhost:3000> to log in and add books, and share
 | `PORT` | Port to listen on (default `3000`). |
 | `DATA_FILE` | Where books are stored (default `data/books.json`). Back this file up. |
 | `GOOGLE_BOOKS_API_KEY` | Optional key for the Google Books fallback (the keyless quota is small). |
+
+### Hosting on a Windows PC
+
+See **[HOSTING-WINDOWS.md](HOSTING-WINDOWS.md)** for a step-by-step guide. A
+setup script runs the app in the background at startup and gives it a free
+HTTPS address via Tailscale Funnel.
 
 ### Camera scanning needs HTTPS
 
@@ -65,4 +73,5 @@ npm test
 | `src/match.js` | Title matching for list checks. |
 | `src/store.js` | JSON-file storage. |
 | `src/auth.js` | Password login with a signed session cookie. |
+| `scripts/windows/` | Setup, run and uninstall scripts for hosting on Windows. |
 | `public/` | The owner page (`index.html`), public page (`share.html`) and shared browser code. |
